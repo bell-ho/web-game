@@ -12,7 +12,8 @@ class Hero {
       if (key.keyDown['left']) {
         this.direction = 'left';
         this.el.classList.add('flip');
-        this.movex = this.movex - this.speed;
+
+        this.movex = this.movex <= 0 ? 0 : this.movex - this.speed;
       } else {
         this.direction = 'right';
         this.el.classList.remove('flip');
@@ -72,7 +73,8 @@ class Bullet {
 
   init() {
     this.bulletDirection = hero.direction === 'left' ? 'left' : 'right';
-    this.x = hero.movex + hero.size().width / 2;
+    this.x = this.bulletDirection === 'right' ? hero.movex + hero.size().width / 2 : hero.movex - hero.size().width / 2;
+
     this.y = hero.position().bottom - hero.size().height / 2;
     this.distance = this.x;
     this.el.style.transform = `translate(${this.x}px, ${this.y}px)`;

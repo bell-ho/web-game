@@ -1,7 +1,9 @@
 .game_app {
     position: relative;
-    height: 100vh;
     overflow: hidden;
+
+    min-width: 1280px;
+    height: 100vh;
 }
 
 .game_app .game {
@@ -74,7 +76,7 @@
     animation: hero_idle 0.7s infinite steps(10);
 }
 
-.hero_box .hero.run {
+.hero_box .hero.run, .hero_box .hero.run.attack {
     height: 100%;
     background-image: url("../lib/images/ninja_run.png");
     background-size: 1498px 182px;
