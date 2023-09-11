@@ -14,6 +14,10 @@ const bulletComProp = {
   arr: [],
 };
 
+const gameBackground = {
+  gameBox: document.querySelector('.game'),
+};
+
 const gameProp = {
   screenWidth: window.innerWidth,
   screenHeight: window.innerHeight,
@@ -21,11 +25,18 @@ const gameProp = {
 
 const renderGame = () => {
   hero.keyMotion();
+  setGameBackground();
 
   bulletComProp.arr.forEach((v, i) => {
     v.moveBullet();
   });
   window.requestAnimationFrame(renderGame);
+};
+
+const setGameBackground = () => {
+  let parallaxValue = (hero.movex - gameProp.screenWidth / 3) * -1;
+  let result = Math.min(0, parallaxValue);
+  gameBackground.gameBox.style.transform = `translateX(${result}px)`;
 };
 
 const windowEvent = () => {
@@ -43,6 +54,11 @@ const loadImg = () => {
   preLoadImgSrc.forEach((v) => {
     const img = new Image();
     img.src = v;
+  });
+
+  window.addEventListener('resize', (e) => {
+    gameProp.screenWidth = window.innerWidth;
+    gameProp.screenHeight = window.innerHeight;
   });
 };
 
