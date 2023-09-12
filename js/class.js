@@ -2,8 +2,16 @@ class Hero {
   constructor(el) {
     this.el = document.querySelector(el);
     this.movex = 0;
+    this.movey = 0;
+
     this.speed = 11;
+    this.jumpSpeed = 10;
+    this.jumpHeight = 200;
+    this.jumpCounter = 0;
+
     this.direction = 'right';
+
+    this.jumping = false;
   }
 
   keyMotion() {

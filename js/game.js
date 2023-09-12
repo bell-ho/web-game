@@ -9,6 +9,10 @@ const key = {
   },
 };
 
+const jumpProps = {
+  launch: false,
+};
+
 const bulletComProp = {
   launch: false,
   arr: [],
@@ -26,7 +30,6 @@ const gameProp = {
 const renderGame = () => {
   hero.keyMotion();
   setGameBackground();
-
   bulletComProp.arr.forEach((v, i) => {
     v.moveBullet();
   });
