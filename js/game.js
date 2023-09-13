@@ -66,8 +66,10 @@ const loadImg = () => {
 };
 
 let hero;
+let monster;
 const init = () => {
-  hero = new Hero('.hero');
+  hero = new Hero();
+  monster = new Monster();
   loadImg();
   windowEvent();
   renderGame();
