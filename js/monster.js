@@ -13,4 +13,13 @@ class Monster {
     this.el.appendChild(this.elChildren);
     this.parentNode.appendChild(this.el);
   }
+
+  position() {
+    return {
+      left: this.el.getBoundingClientRect().left,
+      right: this.el.getBoundingClientRect().right,
+      top: gameProp.screenHeight - this.el.getBoundingClientRect().top,
+      bottom: gameProp.screenHeight - this.el.getBoundingClientRect().top - this.el.getBoundingClientRect().height,
+    };
+  }
 }

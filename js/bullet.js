@@ -43,8 +43,23 @@ class Bullet {
   }
 
   crashBullet() {
+    if (this.position().left > monster.position().left && this.position().right < monster.position().right) {
+      bulletComProp.arr.forEach((v, i) => {
+        if (v === this) {
+          bulletComProp.arr.splice(i, 1);
+          this.el.remove();
+          console.log(bulletComProp.arr);
+        }
+      });
+    }
     if (this.position().left > gameProp.screenWidth || this.position().right < 0) {
-      this.el.remove();
+      bulletComProp.arr.forEach((v, i) => {
+        if (v === this) {
+          bulletComProp.arr.splice(i, 1);
+          this.el.remove();
+          console.log(bulletComProp.arr);
+        }
+      });
     }
   }
 }
