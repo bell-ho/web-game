@@ -44,13 +44,13 @@ class Bullet {
   }
 
   crashBullet() {
-    allMonsterComProp.arr.forEach((monster) => {
+    allMonsterComProp.arr.forEach((monster, i) => {
       if (this.position().left > monster.position().left && this.position().right < monster.position().right) {
-        bulletComProp.arr.forEach((v, i) => {
+        bulletComProp.arr.forEach((v, j) => {
           if (v === this) {
-            bulletComProp.arr.splice(i, 1);
+            bulletComProp.arr.splice(j, 1);
             this.el.remove();
-            monster.updateHp();
+            monster.updateHp(i);
           }
         });
       }

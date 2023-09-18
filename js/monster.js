@@ -30,8 +30,19 @@ class Monster {
     };
   }
 
-  updateHp() {
+  updateHp(index) {
     this.hpValue = Math.max(0, this.hpValue - hero.attackDamage);
     this.el.children[0].innerText = this.hpValue;
+
+    if (this.hpValue === 0) {
+      this.dead(index);
+    }
+  }
+
+  dead(index) {
+    this.el.classList.add('remove');
+    setTimeout(() => this.el.remove(), 200);
+    allMonsterComProp.arr.splice(index, 1);
+    console.log(allMonsterComProp.arr);
   }
 }
