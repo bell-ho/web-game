@@ -9,6 +9,10 @@ const key = {
   },
 };
 
+const allMonsterComProp = {
+  arr: [],
+};
+
 const jumpProps = {
   launch: false,
 };
@@ -66,10 +70,10 @@ const loadImg = () => {
 };
 
 let hero;
-let monster;
 const init = () => {
   hero = new Hero();
-  monster = new Monster();
+  allMonsterComProp.arr[0] = new Monster(700, 7770);
+  allMonsterComProp.arr[1] = new Monster(1500, 7770);
   loadImg();
   windowEvent();
   renderGame();

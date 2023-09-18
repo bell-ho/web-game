@@ -12,6 +12,8 @@ class Hero {
     this.direction = 'right';
 
     this.jumping = false;
+
+    this.attackDamage = 1000;
   }
 
   keyMotion() {

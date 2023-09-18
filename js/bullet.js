@@ -38,26 +38,29 @@ class Bullet {
       left: this.el.getBoundingClientRect().left,
       right: this.el.getBoundingClientRect().right,
       top: gameProp.screenHeight - this.el.getBoundingClientRect().top,
+
       bottom: gameProp.screenHeight - this.el.getBoundingClientRect().top - this.el.getBoundingClientRect().height,
     };
   }
 
   crashBullet() {
-    if (this.position().left > monster.position().left && this.position().right < monster.position().right) {
-      bulletComProp.arr.forEach((v, i) => {
-        if (v === this) {
-          bulletComProp.arr.splice(i, 1);
-          this.el.remove();
-          console.log(bulletComProp.arr);
-        }
-      });
-    }
+    allMonsterComProp.arr.forEach((monster) => {
+      if (this.position().left > monster.position().left && this.position().right < monster.position().right) {
+        bulletComProp.arr.forEach((v, i) => {
+          if (v === this) {
+            bulletComProp.arr.splice(i, 1);
+            this.el.remove();
+            monster.updateHp();
+          }
+        });
+      }
+    });
+
     if (this.position().left > gameProp.screenWidth || this.position().right < 0) {
       bulletComProp.arr.forEach((v, i) => {
         if (v === this) {
           bulletComProp.arr.splice(i, 1);
           this.el.remove();
-          console.log(bulletComProp.arr);
         }
       });
     }
