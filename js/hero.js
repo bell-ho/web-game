@@ -1,7 +1,7 @@
 class Hero {
   constructor() {
     this.el = document.querySelector('.hero');
-    this.movex = 0;
+    this.moveX = 0;
     this.movey = 0;
 
     this.speed = 11;
@@ -23,11 +23,11 @@ class Hero {
         this.direction = 'left';
         this.el.classList.add('flip');
 
-        this.movex = this.movex <= 0 ? 0 : this.movex - this.speed;
+        this.moveX = this.moveX <= 0 ? 0 : this.moveX - this.speed;
       } else {
         this.direction = 'right';
         this.el.classList.remove('flip');
-        this.movex = this.movex + this.speed;
+        this.moveX = this.moveX + this.speed;
       }
     }
 
@@ -48,7 +48,7 @@ class Hero {
       bulletComProp.launch = false;
     }
 
-    this.el.parentNode.style.transform = `translateX(${this.movex}px)`;
+    this.el.parentNode.style.transform = `translateX(${this.moveX}px)`;
   }
 
   position() {

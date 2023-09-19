@@ -37,11 +37,14 @@ const renderGame = () => {
   bulletComProp.arr.forEach((v, i) => {
     v.moveBullet();
   });
+  allMonsterComProp.arr.forEach((v, i) => {
+    v.moveMonster();
+  });
   window.requestAnimationFrame(renderGame);
 };
 
 const setGameBackground = () => {
-  let parallaxValue = (hero.movex - gameProp.screenWidth / 3) * -1;
+  let parallaxValue = (hero.moveX - gameProp.screenWidth / 3) * -1;
   let result = Math.min(0, parallaxValue);
   gameBackground.gameBox.style.transform = `translateX(${result}px)`;
 };
@@ -72,8 +75,7 @@ const loadImg = () => {
 let hero;
 const init = () => {
   hero = new Hero();
-  allMonsterComProp.arr[0] = new Monster(700, 7770);
-  allMonsterComProp.arr[1] = new Monster(1500, 7770);
+  allMonsterComProp.arr[1] = new Monster(700, 7770);
   loadImg();
   windowEvent();
   renderGame();

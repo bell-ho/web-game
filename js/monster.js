@@ -12,6 +12,8 @@ class Monster {
     this.hpInner = document.createElement('span');
     this.positionX = positionX;
     this.progress = 0;
+    this.moveX = 0;
+    this.speed = 10;
 
     this.init();
   }
@@ -47,5 +49,14 @@ class Monster {
     this.el.classList.add('remove');
     setTimeout(() => this.el.remove(), 200);
     allMonsterComProp.arr.splice(index, 1);
+  }
+
+  moveMonster() {
+    if (this.moveX + this.positionX + this.el.offsetWidth + hero.position().left - hero.moveX <= 0) {
+      this.moveX = hero.moveX - this.positionX + gameProp.screenWidth - hero.position().left;
+    } else {
+      this.moveX -= this.speed;
+    }
+    this.el.style.transform = `translateX(${this.moveX}px)`;
   }
 }

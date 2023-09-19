@@ -13,7 +13,7 @@ class Bullet {
 
   init() {
     this.bulletDirection = hero.direction === 'left' ? 'left' : 'right';
-    this.x = this.bulletDirection === 'right' ? hero.movex + hero.size().width / 2 : hero.movex - hero.size().width / 2;
+    this.x = this.bulletDirection === 'right' ? hero.moveX + hero.size().width / 2 : hero.moveX - hero.size().width / 2;
 
     this.y = hero.position().bottom - hero.size().height / 2;
     this.distance = this.x;
