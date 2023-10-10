@@ -14,6 +14,7 @@ class Monster {
     this.progress = 0;
     this.moveX = 0;
     this.speed = 10;
+    this.crashDamege = 100;
 
     this.init();
   }
@@ -58,5 +59,17 @@ class Monster {
       this.moveX -= this.speed;
     }
     this.el.style.transform = `translateX(${this.moveX}px)`;
+    this.crash();
+  }
+
+  crash() {
+    let rightDiff = 30;
+    let leftDiff = 90;
+    if (
+      hero.position().right - rightDiff > this.position().left &&
+      hero.position().left - leftDiff < this.position().right
+    ) {
+      hero.updateHp(this.crashDamege);
+    }
   }
 }

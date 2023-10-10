@@ -14,6 +14,9 @@ class Hero {
     this.jumping = false;
 
     this.attackDamage = 1000;
+    this.hpProgress = 0;
+    this.hpValue = 10000;
+    this.defaultHpValue = this.hpValue;
   }
 
   keyMotion() {
@@ -65,5 +68,12 @@ class Hero {
       width: this.el.offsetWidth,
       height: this.el.offsetHeight,
     };
+  }
+
+  updateHp(monsterDamage) {
+    this.hpValue = Math.max(0, this.hpValue - monsterDamage);
+    this.hpProgress = (this.hpValue / this.defaultHpValue) * 100;
+    const heroHpBox = document.querySelector('.state_box .hp span');
+    heroHpBox.style.width = this.hpProgress + '%';
   }
 }
