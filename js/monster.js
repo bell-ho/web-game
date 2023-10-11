@@ -37,7 +37,7 @@ class Monster {
   }
 
   updateHp(index) {
-    this.hpValue = Math.max(0, this.hpValue - hero.attackDamage);
+    this.hpValue = Math.max(0, this.hpValue - hero.realDamage);
     this.progress = (this.hpValue / this.defaultHpValue) * 100;
     this.el.children[0].children[0].style.width = this.progress + '%';
 

@@ -17,6 +17,8 @@ class Hero {
     this.hpProgress = 0;
     this.hpValue = 10000;
     this.defaultHpValue = this.hpValue;
+
+    this.realDamage = 0;
   }
 
   keyMotion() {
@@ -75,5 +77,23 @@ class Hero {
     this.hpProgress = (this.hpValue / this.defaultHpValue) * 100;
     const heroHpBox = document.querySelector('.state_box .hp span');
     heroHpBox.style.width = this.hpProgress + '%';
+    this.crash();
+    if (this.hpValue === 0) {
+      this.dead();
+    }
+  }
+
+  crash() {
+    this.el.classList.add('crash');
+    setTimeout(() => this.el.classList.remove('crash'), 400);
+  }
+
+  dead() {
+    hero.el.classList.add('dead');
+    endGame();
+  }
+
+  hitDamage() {
+    this.realDamage = this.attackDamage - Math.round(Math.random() * this.attackDamage * 0.1);
   }
 }

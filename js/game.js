@@ -29,6 +29,14 @@ const gameBackground = {
 const gameProp = {
   screenWidth: window.innerWidth,
   screenHeight: window.innerHeight,
+  gameOver: false,
+};
+
+const endGame = () => {
+  gameProp.gameOver = true;
+  key.keyDown.left = false;
+  key.keyDown.right = false;
+  document.querySelector('.game_over').classList.add('active');
 };
 
 const renderGame = () => {
@@ -51,12 +59,19 @@ const setGameBackground = () => {
 
 const windowEvent = () => {
   window.addEventListener('keydown', (e) => {
-    key.keyDown[key.keyValue[e.which]] = true;
+    if (!gameProp.gameOver) {
+      key.keyDown[key.keyValue[e.which]] = true;
+    }
   });
 
   window.addEventListener('keyup', (e) => {
     key.keyDown[key.keyValue[e.which]] = false;
   });
+
+  // window.addEventListener('resize', (e) => {
+  //   gameProp.screenWidth = window.innerWidth;
+  //   gameProp.screenHeight = window.innerHeight;
+  // });
 };
 
 const loadImg = () => {
