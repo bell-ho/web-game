@@ -26,6 +26,10 @@ const gameBackground = {
   gameBox: document.querySelector('.game'),
 };
 
+const stageInfo = {
+  stage: [],
+};
+
 const gameProp = {
   screenWidth: window.innerWidth,
   screenHeight: window.innerHeight,
@@ -90,19 +94,7 @@ const loadImg = () => {
 let hero;
 const init = () => {
   hero = new Hero();
-  // allMonsterComProp.arr[0] = new Monster(pinkMonBoss, gameProp.screenWidth + 700);
-  // allMonsterComProp.arr[1] = new Monster(yellowMonBoss, gameProp.screenWidth + 1400);
-  // allMonsterComProp.arr[2] = new Monster(greenMonBoss, gameProp.screenWidth + 2100);
-
-  Array(10)
-    .fill()
-    .forEach((_, i) => {
-      if (i === 9) {
-        allMonsterComProp.arr[i] = new Monster(pinkMonBoss, gameProp.screenWidth + 700 * i);
-      } else {
-        allMonsterComProp.arr[i] = new Monster(pinkMon, gameProp.screenWidth + 700 * i);
-      }
-    });
+  stageInfo.stage = new Stage();
 
   loadImg();
   windowEvent();
