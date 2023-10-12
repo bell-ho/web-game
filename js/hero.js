@@ -15,7 +15,7 @@ class Hero {
 
     this.attackDamage = 1000;
     this.hpProgress = 0;
-    this.hpValue = 10000;
+    this.hpValue = 100000000;
     this.defaultHpValue = this.hpValue;
 
     this.realDamage = 0;
