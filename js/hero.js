@@ -2,18 +2,9 @@ class Hero {
   constructor() {
     this.el = document.querySelector('.hero');
     this.moveX = 0;
-    this.movey = 0;
-
     this.speed = 11;
-    this.jumpSpeed = 10;
-    this.jumpHeight = 200;
-    this.jumpCounter = 0;
-
     this.direction = 'right';
-
-    this.jumping = false;
-
-    this.attackDamage = 1000;
+    this.attackDamage = 5551000;
     this.hpProgress = 0;
     this.hpValue = 100000000;
     this.defaultHpValue = this.hpValue;

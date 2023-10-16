@@ -52,6 +52,7 @@ const renderGame = () => {
   allMonsterComProp.arr.forEach((v, i) => {
     v.moveMonster();
   });
+  stageInfo.stage.clearCheck();
   window.requestAnimationFrame(renderGame);
 };
 
