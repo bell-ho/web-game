@@ -1,6 +1,6 @@
 class Stage {
   constructor() {
-    this.level = 1;
+    this.level = 0;
     this.isStart = false;
     this.stageStart();
   }
@@ -8,7 +8,7 @@ class Stage {
   stageStart() {
     setTimeout(() => {
       this.isStart = true;
-      this.stageGuide(`START LEVEL${this.level}`);
+      this.stageGuide(`START LEVEL${this.level + 1}`);
       this.callMonster();
     }, 2000);
   }
@@ -29,9 +29,15 @@ class Stage {
       .fill()
       .forEach((_, i) => {
         if (i === 9) {
-          allMonsterComProp.arr[i] = new Monster(pinkMonBoss, hero.moveX + gameProp.screenWidth + 600 * i);
+          allMonsterComProp.arr[i] = new Monster(
+            stageInfo.monster[this.level].bossMon,
+            hero.moveX + gameProp.screenWidth + 600 * i,
+          );
         } else {
-          allMonsterComProp.arr[i] = new Monster(pinkMon, hero.moveX + gameProp.screenWidth + 700 * i);
+          allMonsterComProp.arr[i] = new Monster(
+            stageInfo.monster[this.level].defaultMon,
+            hero.moveX + gameProp.screenWidth + 700 * i,
+          );
         }
       });
   }
@@ -40,8 +46,14 @@ class Stage {
     if (allMonsterComProp.arr.length === 0 && this.isStart) {
       this.isStart = false;
       this.level++;
-      this.stageGuide('CLEAR!!');
-      this.stageStart();
+
+      if (this.level < stageInfo.monster.length) {
+        this.stageGuide('CLEAR!!');
+        this.stageStart();
+        hero.heroUpgrade();
+      } else {
+        this.stageGuide('ALL CLEAR!!');
+      }
     }
   }
 }

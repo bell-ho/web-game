@@ -4,11 +4,10 @@ class Hero {
     this.moveX = 0;
     this.speed = 11;
     this.direction = 'right';
-    this.attackDamage = 5551000;
+    this.attackDamage = 10000;
     this.hpProgress = 0;
-    this.hpValue = 100000000;
+    this.hpValue = 100000;
     this.defaultHpValue = this.hpValue;
-
     this.realDamage = 0;
   }
 
@@ -86,5 +85,10 @@ class Hero {
 
   hitDamage() {
     this.realDamage = this.attackDamage - Math.round(Math.random() * this.attackDamage * 0.1);
+  }
+
+  heroUpgrade() {
+    this.speed += 1.3;
+    this.attackDamage += 15000;
   }
 }
