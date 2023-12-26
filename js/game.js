@@ -6,6 +6,7 @@ const key = {
     39: 'right',
     40: 'down',
     88: 'attack',
+    67: 'slide',
   },
 };
 
@@ -32,7 +33,10 @@ const stageInfo = {
   monster: [
     { defaultMon: greenMon, bossMon: greenMonBoss },
     { defaultMon: yellowMon, bossMon: yellowMonBoss },
-    { defaultMon: pinkMon, bossMon: pinkMonBoss },
+    {
+      defaultMon: pinkMon,
+      bossMon: pinkMonBoss,
+    },
   ],
 };
 

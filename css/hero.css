@@ -34,6 +34,15 @@
     }
 }
 
+@keyframes hero_slide {
+    from {
+        background-position-x: 0;
+    }
+    to {
+        background-position-x: -1498px;
+    }
+}
+
 .hero_box {
     position: fixed;
     left: 0;
@@ -94,4 +103,10 @@
     background-size: cover;
     background-repeat: no-repeat;
     will-change: transform;
+}
+
+.hero_box .hero.slide{
+    background-image: url("../lib/images/ninja_slide.png");
+    background-size: 1498px 182px;
+    animation: hero_slide 0.7s 1 steps(10);
 }
