@@ -2,14 +2,14 @@ class Hero {
   constructor() {
     this.el = document.querySelector('.hero');
     this.moveX = 0;
-    this.speed = 11;
+    this.speed = 10;
     this.direction = 'right';
     this.attackDamage = 10000;
     this.hpProgress = 0;
     this.hpValue = 100000;
     this.defaultHpValue = this.hpValue;
     this.realDamage = 0;
-    this.slideSpeed = 14;
+    this.slideSpeed = 15;
     this.slideTime = 0;
     this.slideMaxTime = 30;
     this.slideDown = false;
