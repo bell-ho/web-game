@@ -16,6 +16,7 @@ class Monster {
     this.speed = property.speed;
     this.crashDamege = property.crashDamage;
     this.score = property.score;
+    this.exp = property.exp;
 
     this.init();
   }
@@ -52,6 +53,7 @@ class Monster {
     setTimeout(() => this.el.remove(), 200);
     allMonsterComProp.arr.splice(index, 1);
     this.setScore();
+    this.setExp();
   }
 
   moveMonster() {
@@ -78,5 +80,9 @@ class Monster {
   setScore() {
     stageInfo.totalScore += this.score;
     document.querySelector('.score_box').innerText = stageInfo.totalScore;
+  }
+
+  setExp() {
+    hero.updateExp(this.exp);
   }
 }

@@ -13,6 +13,10 @@ class Hero {
     this.slideTime = 0;
     this.slideMaxTime = 30;
     this.slideDown = false;
+    this.level = 1;
+    this.exp = 0;
+    this.maxExp = 3000;
+    this.expProgress = 0;
   }
 
   keyMotion() {
@@ -115,7 +119,28 @@ class Hero {
   }
 
   heroUpgrade() {
-    this.speed += 1.3;
     this.attackDamage += 15000;
+  }
+
+  updateExp(exp) {
+    this.exp += exp;
+    this.expProgress = (this.exp / this.maxExp) * 100;
+    document.querySelector('.hero_state .exp span').style.width = this.expProgress + '%';
+    if (this.exp >= this.maxExp) {
+      this.levelUp();
+    }
+  }
+
+  levelUp() {
+    this.level += 1;
+    this.exp = 0;
+    this.maxExp = this.maxExp + this.level * 1000;
+    document.querySelector('.level_box strong').innerText = this.level;
+    const levelGuide = document.querySelector('.hero_box .level_up');
+    levelGuide.classList.add('active');
+
+    setTimeout(() => levelGuide.classList.remove('active'), 1000);
+    this.updateExp(this.exp);
+    this.heroUpgrade();
   }
 }
