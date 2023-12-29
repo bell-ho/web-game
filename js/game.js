@@ -33,11 +33,9 @@ const stageInfo = {
   monster: [
     { defaultMon: greenMon, bossMon: greenMonBoss },
     { defaultMon: yellowMon, bossMon: yellowMonBoss },
-    {
-      defaultMon: pinkMon,
-      bossMon: pinkMonBoss,
-    },
+    { defaultMon: pinkMon, bossMon: pinkMonBoss },
   ],
+  callPosition: [1000, 5000, 9000],
 };
 
 const gameProp = {
