@@ -93,15 +93,25 @@ class Hero {
     };
   }
 
-  updateHp(monsterDamage) {
+  minusHp(monsterDamage) {
     this.hpValue = Math.max(0, this.hpValue - monsterDamage);
-    this.hpProgress = (this.hpValue / this.defaultHpValue) * 100;
-    const heroHpBox = document.querySelector('.state_box .hp span');
-    heroHpBox.style.width = this.hpProgress + '%';
+
     this.crash();
     if (this.hpValue === 0) {
       this.dead();
     }
+    this.renderHp();
+  }
+
+  plusHp(hp) {
+    this.hpValue = hp;
+    this.renderHp();
+  }
+
+  renderHp() {
+    this.hpProgress = (this.hpValue / this.defaultHpValue) * 100;
+    const heroHpBox = document.querySelector('.state_box .hp span');
+    heroHpBox.style.width = this.hpProgress + '%';
   }
 
   crash() {
@@ -142,5 +152,6 @@ class Hero {
     setTimeout(() => levelGuide.classList.remove('active'), 1000);
     this.updateExp(this.exp);
     this.heroUpgrade();
+    this.plusHp(this.defaultHpValue);
   }
 }

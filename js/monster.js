@@ -73,7 +73,7 @@ class Monster {
       hero.position().right - rightDiff > this.position().left &&
       hero.position().left - leftDiff < this.position().right
     ) {
-      hero.updateHp(this.crashDamege);
+      hero.minusHp(this.crashDamege);
     }
   }
 
