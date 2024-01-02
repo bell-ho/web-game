@@ -10,6 +10,7 @@
   <link rel='stylesheet' type='text/css' href='./css/hero.css'>
   <link rel='stylesheet' type='text/css' href='./css/monster.css'>
   <link rel='stylesheet' type='text/css' href='./css/npc.css'>
+  <link rel='stylesheet' type='text/css' href='./css/quest.css'>
 </head>
 <body>
   <div class='game_app'>
@@ -18,12 +19,6 @@
       <div class='hero_box'>
         <span class='level_up'></span>
         <div class='hero'></div>
-      </div>
-      <div class='npc_box'>
-        <div class='talk_box'>
-          <p>큰일이야.. <br>사람들이 좀비로 변했어.. <br><span>대화 Enter</span></p>
-        </div>
-        <div class='npc'></div>
       </div>
     </div>
 
@@ -55,12 +50,25 @@
     </div>
   </div>
 
+  <div class='quest_modal'>
+    <div class='inner_box'>
+      <div class='quest_talk'>
+        <figure class='npc_img'>
+          <img src='./lib/images/npc.png' alt=''>
+        </figure>
+        <p>마을에 몬스터가 출몰했어요 <span>레벨을 5이상</span>으로 만들어 힘을 증명하세요</p>
+      </div>
+      <span class='close'>닫기 Enter</span>
+    </div>
+  </div>
+
   <script type='text/javascript' src='./js/stage.js' charset='utf-8'></script>
   <script type='text/javascript' src='./js/mon.js' charset='utf-8'></script>
   <script type='text/javascript' src='./js/hero.js' charset='utf-8'></script>
   <script type='text/javascript' src='./js/bullet.js' charset='utf-8'></script>
   <script type='text/javascript' src='./js/monster.js' charset='utf-8'></script>
   <script type='text/javascript' src='./js/game.js' charset='utf-8'></script>
+  <script type='text/javascript' src='./js/npc.js' charset='utf-8'></script>
 </body>
 
 </html>

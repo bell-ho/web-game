@@ -7,6 +7,7 @@ const key = {
     40: 'down',
     88: 'attack',
     67: 'slide',
+    13: 'enter',
   },
 };
 
@@ -54,6 +55,9 @@ const endGame = () => {
 const renderGame = () => {
   hero.keyMotion();
   setGameBackground();
+
+  npcOne.crash();
+
   bulletComProp.arr.forEach((v, i) => {
     v.moveBullet();
   });
@@ -75,16 +79,19 @@ const windowEvent = () => {
     if (!gameProp.gameOver) {
       key.keyDown[key.keyValue[e.which]] = true;
     }
+    if (key.keyDown['enter']) {
+      npcOne.talk();
+    }
   });
 
   window.addEventListener('keyup', (e) => {
     key.keyDown[key.keyValue[e.which]] = false;
   });
 
-  // window.addEventListener('resize', (e) => {
-  //   gameProp.screenWidth = window.innerWidth;
-  //   gameProp.screenHeight = window.innerHeight;
-  // });
+  window.addEventListener('resize', (e) => {
+    gameProp.screenWidth = window.innerWidth;
+    gameProp.screenHeight = window.innerHeight;
+  });
 };
 
 const loadImg = () => {
@@ -101,9 +108,12 @@ const loadImg = () => {
 };
 
 let hero;
+let npcOne;
+
 const init = () => {
   hero = new Hero();
   stageInfo.stage = new Stage();
+  npcOne = new Npc();
 
   loadImg();
   windowEvent();
