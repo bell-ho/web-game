@@ -7,8 +7,6 @@ class Npc {
     this.npcCrash = false;
     this.talkOn = false;
     this.modal = document.querySelector('.quest_modal');
-    this.questStart = false;
-    this.questEnd = false;
     this.init();
   }
 

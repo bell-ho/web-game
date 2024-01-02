@@ -74,7 +74,7 @@ class Hero {
       this.slideTime = 0;
     }
 
-    this.el.parentNode.style.transform = `translateX(${this.moveX}px)`;
+    this.el.parentNode['style'].transform = `translateX(${this.moveX}px)`;
   }
 
   position() {

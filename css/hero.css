@@ -121,7 +121,7 @@
     will-change: transform;
 }
 
-.hero_box .hero.slide{
+.hero_box .hero.slide {
     background-image: url("../lib/images/ninja_slide.png");
     background-size: 1498px 182px;
     animation: hero_slide 0.7s 1 steps(10);

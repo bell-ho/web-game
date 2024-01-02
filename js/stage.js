@@ -16,7 +16,7 @@ class Stage {
 
   callMonster() {
     allMonsterComProp.arr = Array(10)
-      .fill()
+      .fill(undefined, undefined, undefined)
       .map((_, i) => {
         const monsterType = i === 9 ? stageInfo.monster[this.level].bossMon : stageInfo.monster[this.level].defaultMon;
         const position = hero.moveX + gameProp.screenWidth + (i === 9 ? 600 : 700) * i;
