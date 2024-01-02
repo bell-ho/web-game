@@ -110,10 +110,47 @@ const loadImg = () => {
 let hero;
 let npcOne;
 
+const levelQuest = {
+  positionX: 600,
+  idleMessage: '<p>큰일이야.. <br>사람들이 좀비로 변했어.. <br><span>대화 Enter</span></p>',
+  quest: () => {
+    const message = {
+      start: '마을에 몬스터가 출몰했어요 <span>레벨을 5이상</span>으로 만들어 힘을 증명하세요',
+      ing: '아직 레벨을 달성하지 못했어요',
+      suc: '레벨을 달성했구나 힘을줄게!',
+      end: '고마워 행운을 빌어!',
+    };
+
+    let messageState = '';
+    if (!npcOne.questStart) {
+      messageState = message.start;
+      npcOne.questStart = true;
+    } else if (npcOne.questStart && !npcOne.questEnd && hero.level < 5) {
+      messageState = message.ing;
+    } else if (npcOne.questStart && !npcOne.questEnd && hero.level >= 5) {
+      messageState = message.suc;
+      npcOne.questEnd = true;
+      hero.heroUpgrade(50000);
+    } else if (npcOne.questStart && this.questEnd) {
+      messageState = message.end;
+    }
+
+    let questContent =
+      "        <figure class='npc_img'>" +
+      "          <img src='./lib/images/npc.png' alt=''>" +
+      '        </figure>' +
+      '        <p>' +
+      `         ${messageState}` +
+      '        </p>';
+    const modalInner = document.querySelector('.quest_modal .inner_box .quest_talk');
+    modalInner.innerHTML = questContent;
+  },
+};
+
 const init = () => {
   hero = new Hero();
   stageInfo.stage = new Stage();
-  npcOne = new Npc();
+  npcOne = new Npc(levelQuest);
 
   loadImg();
   windowEvent();
