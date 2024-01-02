@@ -15,10 +15,6 @@ const allMonsterComProp = {
   arr: [],
 };
 
-const jumpProps = {
-  launch: false,
-};
-
 const bulletComProp = {
   launch: false,
   arr: [],
@@ -55,13 +51,14 @@ const endGame = () => {
 const renderGame = () => {
   hero.keyMotion();
   setGameBackground();
+  npcList.forEach((v) => {
+    v.crash();
+  });
 
-  npcOne.crash();
-
-  bulletComProp.arr.forEach((v, i) => {
+  bulletComProp.arr.forEach((v) => {
     v.moveBullet();
   });
-  allMonsterComProp.arr.forEach((v, i) => {
+  allMonsterComProp.arr.forEach((v) => {
     v.moveMonster();
   });
   stageInfo.stage.clearCheck();
@@ -80,7 +77,9 @@ const windowEvent = () => {
       key.keyDown[key.keyValue[e.which]] = true;
     }
     if (key.keyDown['enter']) {
-      npcOne.talk();
+      npcList.forEach((v) => {
+        v.talk();
+      });
     }
   });
 
@@ -88,7 +87,7 @@ const windowEvent = () => {
     key.keyDown[key.keyValue[e.which]] = false;
   });
 
-  window.addEventListener('resize', (e) => {
+  window.addEventListener('resize', () => {
     gameProp.screenWidth = window.innerWidth;
     gameProp.screenHeight = window.innerHeight;
   });
@@ -101,37 +100,38 @@ const loadImg = () => {
     img.src = v;
   });
 
-  window.addEventListener('resize', (e) => {
+  window.addEventListener('resize', () => {
     gameProp.screenWidth = window.innerWidth;
     gameProp.screenHeight = window.innerHeight;
   });
 };
 
-let hero;
-let npcOne;
+const createMessage = (start, ing, suc, end) => {
+  return { start, ing, suc, end };
+};
 
-const levelQuest = {
-  positionX: 600,
-  idleMessage: '<p>큰일이야.. <br>사람들이 좀비로 변했어.. <br><span>대화 Enter</span></p>',
-  quest: () => {
-    const message = {
-      start: '마을에 몬스터가 출몰했어요 <span>레벨을 5이상</span>으로 만들어 힘을 증명하세요',
-      ing: '아직 레벨을 달성하지 못했어요',
-      suc: '레벨을 달성했구나 힘을줄게!',
-      end: '고마워 행운을 빌어!',
-    };
+const createLevelQuest = (positionX, idleMessage, level, heroUpgrade) => ({
+  positionX,
+  idleMessage,
+  quest: (npc) => {
+    const message = createMessage(
+      `마을에 몬스터가 출몰했어요 <span>레벨을 ${level}이상</span>으로 만들어 힘을 증명하세요`,
+      '아직 레벨을 달성하지 못했어요',
+      '레벨을 달성했구나 힘을줄게!',
+      '고마워 행운을 빌어!',
+    );
 
     let messageState = '';
-    if (!npcOne.questStart) {
+    if (!npc.questStart) {
       messageState = message.start;
-      npcOne.questStart = true;
-    } else if (npcOne.questStart && !npcOne.questEnd && hero.level < 5) {
+      npc.questStart = true;
+    } else if (npc.questStart && !npc.questEnd && hero.level < level) {
       messageState = message.ing;
-    } else if (npcOne.questStart && !npcOne.questEnd && hero.level >= 5) {
+    } else if (npc.questStart && !npc.questEnd && hero.level >= level) {
       messageState = message.suc;
-      npcOne.questEnd = true;
-      hero.heroUpgrade(50000);
-    } else if (npcOne.questStart && this.questEnd) {
+      npc.questEnd = true;
+      hero.heroUpgrade(heroUpgrade);
+    } else if (npc.questStart && npc.questEnd) {
       messageState = message.end;
     }
 
@@ -145,12 +145,21 @@ const levelQuest = {
     const modalInner = document.querySelector('.quest_modal .inner_box .quest_talk');
     modalInner.innerHTML = questContent;
   },
-};
+});
+
+let hero;
+let npcList = [];
 
 const init = () => {
   hero = new Hero();
   stageInfo.stage = new Stage();
-  npcOne = new Npc(levelQuest);
+  npcList.push(new Npc(createLevelQuest(600, '<p>큰일이야.. 좀비왕이 부활했어..<span>대화 Enter</span></p>', 5, 5000)));
+  npcList.push(
+    new Npc(createLevelQuest(1000, '<p>큰일이야2.. 좀비왕이 부활했어..<span>대화 Enter</span></p>', 10, 5000)),
+  );
+  npcList.push(
+    new Npc(createLevelQuest(1300, '<p>큰일이야3.. 좀비왕이 부활했어..<span>대화 Enter</span></p>', 15, 5000)),
+  );
 
   loadImg();
   windowEvent();

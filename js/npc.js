@@ -1,6 +1,5 @@
 class Npc {
   constructor(property) {
-    console.log(property);
     this.property = property;
     this.parentNode = document.querySelector('.game');
     this.el = document.createElement('div');
@@ -40,7 +39,7 @@ class Npc {
   talk() {
     if (!this.talkOn && this.npcCrash) {
       this.talkOn = true;
-      this.property.quest();
+      this.property.quest(this);
       this.modal.classList.add('active');
     } else if (this.talkOn) {
       this.talkOn = false;
