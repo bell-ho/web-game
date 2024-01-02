@@ -128,8 +128,8 @@ class Hero {
     this.realDamage = this.attackDamage - Math.round(Math.random() * this.attackDamage * 0.1);
   }
 
-  heroUpgrade() {
-    this.attackDamage += 15000;
+  heroUpgrade(upDamage = 5000) {
+    this.attackDamage += upDamage;
   }
 
   updateExp(exp) {

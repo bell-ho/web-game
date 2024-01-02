@@ -6,6 +6,8 @@ class Npc {
     this.npcCrash = false;
     this.talkOn = false;
     this.modal = document.querySelector('.quest_modal');
+    this.questStart = false;
+    this.questEnd = false;
     this.init();
   }
 
@@ -44,11 +46,34 @@ class Npc {
   }
 
   quest() {
+    const message = {
+      start: '마을에 몬스터가 출몰했어요 <span>레벨을 5이상</span>으로 만들어 힘을 증명하세요',
+      ing: '아직 레벨을 달성하지 못했어요',
+      suc: '레벨을 달성했구나 힘을줄게!',
+      end: '고마워 행운을 빌어!',
+    };
+
+    let messageState = '';
+    if (!this.questStart) {
+      messageState = message.start;
+      this.questStart = true;
+    } else if (this.questStart && !this.questEnd && hero.level < 5) {
+      messageState = message.ing;
+    } else if (this.questStart && !this.questEnd && hero.level >= 5) {
+      messageState = message.suc;
+      this.questEnd = true;
+      hero.heroUpgrade(50000);
+    } else if (this.questStart && this.questEnd) {
+      messageState = message.end;
+    }
+
     let questContent =
       "        <figure class='npc_img'>" +
       "          <img src='./lib/images/npc.png' alt=''>" +
       '        </figure>' +
-      '        <p>마을에 몬스터가 출몰했어요 <span>레벨을 5이상</span>으로 만들어 힘을 증명하세요</p>';
+      '        <p>' +
+      `         ${messageState}` +
+      '        </p>';
     const modalInner = document.querySelector('.quest_modal .inner_box .quest_talk');
     modalInner.innerHTML = questContent;
   }
