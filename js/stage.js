@@ -26,15 +26,16 @@ class Stage {
 
   clearCheck() {
     stageInfo.callPosition.forEach((arr) => {
-      if (hero.moveX >= arr && allMonsterComProp.arr.length === 0) {
-        this.stageGuide('곧 몬스터가 몰려옵니다');
-        stageInfo.callPosition.shift();
-
-        setTimeout(() => {
-          this.callMonster();
-          this.level++;
-        }, 1000);
+      if (!(hero.moveX >= arr && allMonsterComProp.arr.length === 0)) {
+        return;
       }
+      this.stageGuide('곧 몬스터가 몰려옵니다');
+      stageInfo.callPosition.shift();
+
+      setTimeout(() => {
+        this.callMonster();
+        this.level++;
+      }, 1000);
     });
   }
 }

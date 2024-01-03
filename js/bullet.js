@@ -14,7 +14,6 @@ class Bullet {
   init() {
     this.bulletDirection = hero.direction === 'left' ? 'left' : 'right';
     this.x = this.bulletDirection === 'right' ? hero.moveX + hero.size().width / 2 : hero.moveX - hero.size().width / 2;
-
     this.y = hero.position().bottom - hero.size().height / 2;
     this.distance = this.x;
     this.el.style.transform = `translate(${this.x}px, ${this.y}px)`;
@@ -38,34 +37,37 @@ class Bullet {
       left: this.el.getBoundingClientRect().left,
       right: this.el.getBoundingClientRect().right,
       top: gameProp.screenHeight - this.el.getBoundingClientRect().top,
-
       bottom: gameProp.screenHeight - this.el.getBoundingClientRect().top - this.el.getBoundingClientRect().height,
     };
   }
 
   crashBullet() {
     allMonsterComProp.arr.forEach((monster, i) => {
-      if (this.position().left > monster.position().left && this.position().right < monster.position().right) {
-        bulletComProp.arr.forEach((v, j) => {
-          if (v === this) {
-            hero.hitDamage();
-            bulletComProp.arr.splice(j, 1);
-            this.el.remove();
-            this.damageView(monster);
-            monster.updateHp(i);
-          }
-        });
+      if (!(this.position().left > monster.position().left && this.position().right < monster.position().right)) {
+        return;
       }
+      bulletComProp.arr.forEach((v, j) => {
+        if (v !== this) {
+          return;
+        }
+        hero.hitDamage();
+        bulletComProp.arr.splice(j, 1);
+        this.el.remove();
+        this.damageView(monster);
+        monster.updateHp(i);
+      });
     });
 
-    if (this.position().left > gameProp.screenWidth || this.position().right < 0) {
-      bulletComProp.arr.forEach((v, i) => {
-        if (v === this) {
-          bulletComProp.arr.splice(i, 1);
-          this.el.remove();
-        }
-      });
+    if (!(this.position().left > gameProp.screenWidth || this.position().right < 0)) {
+      return;
     }
+    bulletComProp.arr.forEach((v, i) => {
+      if (v !== this) {
+        return;
+      }
+      bulletComProp.arr.splice(i, 1);
+      this.el.remove();
+    });
   }
 
   damageView(monster) {

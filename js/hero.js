@@ -19,60 +19,61 @@ class Hero {
     this.expProgress = 0;
   }
 
-  keyMotion() {
-    if (key.keyDown['left'] || key.keyDown['right']) {
-      this.el.classList.add('run');
-      if (key.keyDown['left']) {
-        this.direction = 'left';
-        this.el.classList.add('flip');
+  updateClass(action, className) {
+    if (action) {
+      this.el.classList.add(className);
+    } else {
+      this.el.classList.remove(className);
+    }
+  }
 
-        this.moveX = this.moveX <= 0 ? 0 : this.moveX - this.speed;
-      } else {
-        this.direction = 'right';
-        this.el.classList.remove('flip');
-        this.moveX = this.moveX + this.speed;
+  move(direction) {
+    const isLeft = direction === 'left';
+    this.updateClass(isLeft, 'flip');
+    const change = isLeft ? -this.speed : this.speed;
+    this.moveX = Math.max(this.moveX + change, 0);
+  }
+
+  slide() {
+    const shouldSlide = key.keyDown['slide'] && !this.slideDown;
+    this.updateClass(shouldSlide, 'slide');
+
+    if (shouldSlide) {
+      const change = this.direction === 'right' ? this.slideSpeed : -this.slideSpeed;
+      this.moveX = Math.max(this.moveX + change, 0);
+
+      if (this.slideTime > this.slideMaxTime) {
+        this.el.classList.remove('slide');
+        this.slideDown = true;
       }
-    }
-
-    if (!key.keyDown['left'] && !key.keyDown['right']) {
-      this.el.classList.remove('run');
-    }
-
-    if (key.keyDown['attack']) {
-      if (!bulletComProp.launch) {
-        this.el.classList.add('attack');
-        bulletComProp.arr.push(new Bullet());
-        bulletComProp.launch = true;
-      }
-    }
-
-    if (!key.keyDown['attack']) {
-      this.el.classList.remove('attack');
-      bulletComProp.launch = false;
-    }
-
-    if (key.keyDown['slide']) {
-      if (!this.slideDown) {
-        this.el.classList.add('slide');
-        if (this.direction === 'right') {
-          this.moveX = this.moveX + this.slideSpeed;
-        } else {
-          this.moveX = this.moveX - this.slideSpeed;
-        }
-
-        if (this.slideTime > this.slideMaxTime) {
-          this.el.classList.remove('slide');
-          this.slideDown = true;
-        }
-        this.slideTime += 1;
-      }
-    }
-
-    if (!key.keyDown['slide']) {
-      this.el.classList.remove('slide');
+      this.slideTime += 1;
+    } else {
       this.slideDown = false;
       this.slideTime = 0;
     }
+  }
+
+  attack() {
+    this.updateClass(key.keyDown['attack'], 'attack');
+    if (key.keyDown['attack'] && !bulletComProp.launch) {
+      bulletComProp.arr.push(new Bullet());
+      bulletComProp.launch = true;
+    } else if (!key.keyDown['attack']) {
+      bulletComProp.launch = false;
+    }
+  }
+
+  keyMotion() {
+    const isMoving = key.keyDown['left'] || key.keyDown['right'];
+    this.updateClass(isMoving, 'run');
+
+    if (isMoving) {
+      this.direction = key.keyDown['left'] ? 'left' : 'right';
+      this.move(this.direction);
+    }
+
+    this.attack();
+    this.slide();
 
     this.el.parentNode['style'].transform = `translateX(${this.moveX}px)`;
   }

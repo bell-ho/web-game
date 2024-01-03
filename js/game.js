@@ -31,8 +31,9 @@ const stageInfo = {
     { defaultMon: greenMon, bossMon: greenMonBoss },
     { defaultMon: yellowMon, bossMon: yellowMonBoss },
     { defaultMon: pinkMon, bossMon: pinkMonBoss },
+    { defaultMon: pinkMon, bossMon: zombieKing },
   ],
-  callPosition: [1000, 5000, 9000],
+  callPosition: [1000, 5000, 9000, 12000],
 };
 
 const gameProp = {
@@ -94,7 +95,11 @@ const windowEvent = () => {
 };
 
 const loadImg = () => {
-  const preLoadImgSrc = ['../lib/images/ninja_attack.png', '../lib/images/ninja_run.png'];
+  const preLoadImgSrc = [
+    '../lib/images/ninja_attack.png',
+    '../lib/images/ninja_run.png',
+    '../lib/images/ninja_slide.png',
+  ];
   preLoadImgSrc.forEach((v) => {
     const img = new Image();
     img.src = v;
